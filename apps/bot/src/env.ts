@@ -26,7 +26,7 @@ const parsedEnv = envSchema.parse(process.env);
 
 export const env = {
   ...parsedEnv,
-  MONGODB_URI: parsedEnv.MONGODB_URI ?? parsedEnv.MONGO_URL,
+  MONGODB_URI: parsedEnv.MONGODB_URI ?? parsedEnv.MONGO_URL ?? "mongodb://localhost:27017/manok",
   ENCRYPTION_MASTER_KEY:
     parsedEnv.ENCRYPTION_MASTER_KEY ??
     crypto.createHash("sha256").update(`${parsedEnv.DISCORD_TOKEN}:manok-lua-v1`).digest("hex")
