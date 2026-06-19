@@ -9,7 +9,8 @@ const envSchema = z.object({
   DISCORD_TOKEN: z.string().min(1),
   DISCORD_CLIENT_ID: z.string().min(1),
   DISCORD_GUILD_ID: z.string().optional(),
-  MONGODB_URI: z.string().min(1).default("mongodb://localhost:27017/manok"),
+  MONGODB_URI: z.string().min(1).optional(),
+  MONGO_URL: z.string().min(1).optional(),
   REDIS_URL: z.string().min(1).default("redis://localhost:6379"),
   LAVALINK_HOST: z.string().default("localhost"),
   LAVALINK_PORT: z.coerce.number().default(2333),
@@ -25,6 +26,7 @@ const parsedEnv = envSchema.parse(process.env);
 
 export const env = {
   ...parsedEnv,
+  MONGODB_URI: parsedEnv.MONGODB_URI ?? parsedEnv.MONGO_URL,
   ENCRYPTION_MASTER_KEY:
     parsedEnv.ENCRYPTION_MASTER_KEY ??
     crypto.createHash("sha256").update(`${parsedEnv.DISCORD_TOKEN}:manok-lua-v1`).digest("hex")
