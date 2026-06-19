@@ -1,0 +1,39 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: manok-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - manok-mongo-data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    container_name: manok-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - manok-redis-data:/data
+
+  lavalink:
+    image: ghcr.io/lavalink-devs/lavalink:4
+    container_name: manok-lavalink
+    restart: unless-stopped
+    ports:
+      - "2333:2333"
+    volumes:
+      - ./infra/lavalink/application.yml:/opt/Lavalink/application.yml:ro
+      - manok-lavalink-plugins:/opt/Lavalink/plugins
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:2333/version >/dev/null 2>&1 || exit 1"]
+      interval: 20s
+      timeout: 5s
+      retries: 8
+      start_period: 30s
+
+volumes:
+  manok-mongo-data:
+  manok-redis-data:
+  manok-lavalink-plugins:

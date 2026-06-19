@@ -1,0 +1,11 @@
+import { ButtonInteraction, ChatInputCommandInteraction, Client, GuildMember, PartialGuildMember } from "discord.js";
+export declare function handleTicket(interaction: ChatInputCommandInteraction): Promise<void>;
+export declare function handleVerify(interaction: ChatInputCommandInteraction): Promise<void>;
+export declare function handleWelcomeConfig(interaction: ChatInputCommandInteraction): Promise<void>;
+export declare function sendWelcome(member: GuildMember): Promise<void>;
+export declare function sendLeave(member: GuildMember | PartialGuildMember): Promise<void>;
+export declare function handleSuggestion(interaction: ChatInputCommandInteraction): Promise<void>;
+export declare function handleGiveaway(interaction: ChatInputCommandInteraction): Promise<void>;
+export declare function handleGiveawayButton(interaction: ButtonInteraction): Promise<boolean>;
+export declare function handleBackup(interaction: ChatInputCommandInteraction): Promise<void>;
+export declare function installCommunityEvents(client: Client): void;

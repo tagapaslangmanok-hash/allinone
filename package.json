@@ -1,0 +1,37 @@
+{
+  "name": "manok-bot-2026",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MANOK Bot 2026 - premium Discord bot platform with security, music, Lua tools, and dashboard.",
+  "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": "22.x",
+    "npm": ">=10"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @manok/bot",
+    "dev:bot": "npm run dev --workspace @manok/bot",
+    "dev:dashboard": "npm run dev --workspace @manok/dashboard",
+    "dev:infra": "docker compose up -d mongo redis lavalink",
+    "dev:lavalink": "docker compose up -d lavalink",
+    "dev:mongo": "docker compose up -d mongo",
+    "dev:redis": "docker compose up -d redis",
+    "logs:lavalink": "docker compose logs -f lavalink",
+    "stop:lavalink": "docker compose stop lavalink",
+    "build": "npm run build --workspace @manok/shared && npm run build --workspace @manok/database && npm run build --workspace @manok/bot && npm run build --workspace @manok/dashboard",
+    "start": "npm run start --workspace @manok/bot",
+    "start:dashboard": "npm run start --workspace @manok/dashboard",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run build --workspace @manok/shared && npm run build --workspace @manok/database && npm run typecheck --workspace @manok/bot && npm run typecheck --workspace @manok/dashboard",
+    "check:env": "node scripts/check-env.mjs",
+    "register:commands": "npm run register:commands --workspace @manok/bot"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
